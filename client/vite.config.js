@@ -1,7 +1,15 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react-swc'
+// /client/vite.config.js
 
-// https://vitejs.dev/config/
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+
 export default defineConfig({
-  plugins: [react()]
-})
+  plugins: [react()],
+  server: {
+    allowedHosts: [
+      "pumped-miserably-ferret.ngrok-free.app",
+      "app.alexpariah.live",
+      "all",
+    ],
+  },
+});

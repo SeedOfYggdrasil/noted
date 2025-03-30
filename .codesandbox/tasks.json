@@ -1,0 +1,25 @@
+{
+  // These tasks will run in order when initializing your CodeSandbox project.
+  "setupTasks": [
+    {
+      "command": "pnpm run init",
+      "name": "Installing Packages"
+    }
+  ],
+
+  // These tasks can be run from CodeSandbox. Running one will open a log in the app.
+  "tasks": {
+    "start": {
+      "name": "serve",
+      "command": "cd server && pnpm start"
+    },
+    "deploy": {
+      "name": "deploy",
+      "command": "cd client && pnpm run build"
+    },
+    "init": {
+      "name": "init",
+      "command": "cd client && pnpm i && cd .. && cd server && pnpm i"
+    }
+  }
+}

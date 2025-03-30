@@ -1,0 +1,1505 @@
+This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+<additional_info>
+
+</additional_info>
+
+</file_summary>
+
+<directory_structure>
+.codesandbox/
+  tasks.json
+.devcontainer/
+  devcontainer.json
+.github/
+  dependabot.yml
+client/
+  src/
+    assets/
+      fb.svg
+      google.svg
+    components/
+      BtnClose.jsx
+      BtnMain.jsx
+      Copyright.jsx
+      Login.jsx
+      ModalWrapper.jsx
+      Register.jsx
+    css/
+      App.css
+      BtnClose.css
+      BtnMain.css
+      Copyright.css
+      Dashboard.css
+      fonts.css
+      LandingPage.css
+      Login.css
+      Register.css
+    pages/
+      Dashboard.jsx
+      Editor.jsx
+      LandingPage.jsx
+    App.jsx
+    firebaseConfig.js
+    main.jsx
+  index.html
+  package.json
+  vite.config.js
+server/
+  .unused/
+    models/
+      user.js
+    routes/
+      apiRoutes.js
+      auth.js
+  package.json
+  README.md
+.gitignore
+package.json
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path=".codesandbox/tasks.json">
+{
+  // These tasks will run in order when initializing your CodeSandbox project.
+  "setupTasks": [
+    {
+      "command": "npm run init",
+      "name": "Installing Packages"
+    }
+  ],
+
+  // These tasks can be run from CodeSandbox. Running one will open a log in the app.
+  "tasks": {
+    "start": {
+      "name": "serve",
+      "command": "cd server && npm start"
+    },
+    "deploy": {
+      "name": "deploy",
+      "command": "cd client && npm run build"
+    },
+    "dev": {
+      "name": "dev",
+      "command": "cd client && npm run dev"
+    }
+  }
+}
+</file>
+
+<file path=".devcontainer/devcontainer.json">
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/ubuntu
+{
+	"name": "Ubuntu",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	"image": "mcr.microsoft.com/devcontainers/base:jammy",
+	"features": {
+		"ghcr.io/devcontainers/features/github-cli": {
+			"version": "latest",
+			"installDirectlyFromGitHubRelease": "true"
+		},
+		"ghcr.io/devcontainers/features/node": {
+			"version": "lts",
+			"nodeGypDependencies": "true",
+			"nvmInstallPath": "/usr/local/share/nvm",
+			"pnpmVersion": "latest",
+			"nvmVersion": "latest",
+			"installYarnUsingApt": "true"
+		},
+		"ghcr.io/devcontainers/features/common-utils": {
+			"installZsh": "false",
+			"configureZshAsDefaultShell": "false",
+			"installOhMyZsh": "false",
+			"installOhMyZshConfig": "false",
+			"upgradePackages": "true",
+			"username": "automatic",
+			"userUid": "1001",
+			"userGid": "1001",
+			"nonFreePackages": "false"
+		},
+		"ghcr.io/devcontainers/features/sshd": {
+			"version": "latest"
+		},
+		"ghcr.io/devcontainers/features/git-lfs": {
+			"version": "latest",
+			"autoPull": "true",
+			"installDirectlyFromGitHubRelease": "false"
+		}
+	}
+
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	// "features": {},
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	// "postCreateCommand": "uname -a",
+
+	// Configure tool-specific properties.
+	// "customizations": {},
+
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
+}
+</file>
+
+<file path=".github/dependabot.yml">
+# To get started with Dependabot version updates, you'll need to specify which
+# package ecosystems to update and where the package manifests are located.
+# Please see the documentation for more information:
+# https://docs.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
+# https://containers.dev/guide/dependabot
+
+version: 2
+updates:
+ - package-ecosystem: "devcontainers"
+   directory: "/"
+   schedule:
+     interval: weekly
+</file>
+
+<file path="server/.unused/models/user.js">
+// ./models/user.js
+
+const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
+
+const userSchema = new mongoose.Schema({
+    username: { type: String, required: true, unique: true },
+    hashedPassword: { type: String, required: true }
+});
+
+// Hash password before saving
+userSchema.pre('save', async function(next) {
+    if (this.isModified('hashedPassword')) {
+        this.hashedPassword = await bcrypt.hash(this.hashedPassword, 10);
+    }
+    next();
+});
+
+module.exports = mongoose.model('User', userSchema);
+</file>
+
+<file path="server/.unused/routes/apiRoutes.js">
+// apiRoutes.js
+
+import express from "express";
+import authRoutes from "./auth.js";
+
+const router = express.Router();
+router.use("/", authRoutes);
+
+module.exports = router;
+</file>
+
+<file path="server/.unused/routes/auth.js">
+// ./routes/auth.js
+
+//Imports
+import express from "express";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import User from "../models/user";
+
+// Router
+const router = express.Router();
+
+// Encryption
+const JWT_SECRET =
+  process.env.JWT_SECRET || "AFSe3Zu43e5fyFEubSzLP5s7uwdOyD3P7jLILGzUIQw=";
+const SALT_ROUNDS = 10;
+
+// Signup Endpoint
+router.post("/signup", async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    const salt = await bcrypt.genSalt(SALT_ROUNDS);
+    const hashedPassword = await bcrypt.hash(password, salt);
+    const user = new User({ username, hashedPassword: hashedPassword });
+    await user.save();
+    res.status(201).send("User created successfully");
+  } catch (error) {
+    res.status(500).send("Error creating user");
+  }
+});
+
+// Login Endpoint
+router.post("/login", async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    const user = await User.findOne({ username });
+
+    if (user && (await bcrypt.compare(password, user.hashedPassword))) {
+      const token = jwt.sign({ userId: user._id }, JWT_SECRET, {
+        expiresIn: "1h",
+      });
+      res.status(200).json({ token });
+    } else {
+      res.status(401).send("Invalid credentials");
+    }
+  } catch (error) {
+    res.status(500).send("Error logging in");
+  }
+});
+
+module.exports = router;
+</file>
+
+<file path="server/package.json">
+{
+  "name": "noted-api",
+  "version": "3.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "bcrypt": "latest",
+    "bootstrap": "latest",
+    "cors": "latest",
+    "express": "latest",
+    "express-router": "latest",
+    "jsonwebtoken": "latest",
+    "mongodb": "^6.15.0",
+    "mongoose": "latest",
+    "path": "latest",
+    "prompt-sync": "latest",
+    "router": "latest"
+  }
+}
+</file>
+
+<file path="server/README.md">
+PROJECT OVERVIEW
+
+# Noted
+## "The AI-Assisted Note-taking App for Creatives"
+
+### Type: 
+Full-stack Responsive Web/Mobile Application
+### Scope: 
+Small-scale, single-developer project with a $0 budget, designed to scale as needed in the future.
+### License: 
+MIT
+### Tech-Stack:
+	Frontend: React.js, Vite.js, HTML, CSS
+	Backend: Node.js, Express.js
+
+### Objective: 
+	Design, build, and deploy a fully-functioning Proof-Of-Concept for an AI-powered note-taking/organizational fullstack web application that demonstrates working implementations of all of the Features described subsquently within this Overview.
+
+### Key Features:
+	1. Record your ideas by writing them down, recording your voice, or using text-to-speech. 
+	2. Distraction-free, esthetically pleasing, minimalist, and modern UI.
+	3. Format and style notes using Markdown or by using the intuitive, built-in rich-text editor.
+	4. Use AI to get organzed by generating schedules, calendars, spread-sheets, budgets, or outlines.
+	5. Enhance your creativity with an AI that generates plot/grammar/diction suggestions in the margin and learns as you write, evolving and adapting to your specific needs as a creator.
+	6. Create, share, and download templates.
+	7. Synchronize your notes on all devices using secure, encrypted cloud-storage.
+	8. After finishing your book, story, poem, or document, immediately list it for sale as an e-book, hardcover/paperback, or as an audiobook read aloud by an artificially generated voice.
+	9. Attach images or videos to notes.
+	10. Set notes as private, or allow others to access them and make their own changes for a collaborative effort.
+	11. Add user-created plugins and modifications for infinite expansion and functionality.
+</file>
+
+<file path="client/src/assets/fb.svg">
+<?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+<svg width="800px" height="800px" viewBox="0 0 24 24" id="_24x24_On_Light_Facebook" data-name="24x24/On Light/Facebook" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="0.991" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#4e69a2"/>
+      <stop offset="1" stop-color="#3b5998"/>
+    </linearGradient>
+    <clipPath id="clip-path">
+      <path id="Shape" d="M11.193,19.929h0V13.159h2.358l.354-2.667H11.193v-1.7c0-.779.231-1.3,1.356-1.3H14V5.106A19.937,19.937,0,0,0,11.887,5,3.269,3.269,0,0,0,8.365,8.525v1.966H6v2.667H8.365v6.709a10,10,0,1,1,2.83.062Z" transform="translate(2 2)" fill="url(#linear-gradient)"/>
+    </clipPath>
+  </defs>
+  <rect id="view-box" width="24" height="24" fill="none"/>
+  <path id="Shape-2" data-name="Shape" d="M11.193,19.929h0V13.159h2.358l.354-2.667H11.193v-1.7c0-.779.231-1.3,1.356-1.3H14V5.106A19.937,19.937,0,0,0,11.887,5,3.269,3.269,0,0,0,8.365,8.525v1.966H6v2.667H8.365v6.709a10,10,0,1,1,2.83.062Z" transform="translate(2 2)" fill="url(#linear-gradient)"/>
+</svg>
+</file>
+
+<file path="client/src/assets/google.svg">
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.5" y="0.5" width="39" height="39" rx="19.5" fill="#131314"/>
+<g clip-path="url(#clip0_710_6219)">
+<path d="M29.6 20.2273C29.6 19.5182 29.5364 18.8364 29.4182 18.1818H20V22.05H25.3818C25.15 23.3 24.4455 24.3591 23.3864 25.0682V27.5773H26.6182C28.5091 25.8364 29.6 23.2727 29.6 20.2273Z" fill="#4285F4"/>
+<path d="M20 30C22.7 30 24.9636 29.1045 26.6181 27.5773L23.3863 25.0682C22.4909 25.6682 21.3454 26.0227 20 26.0227C17.3954 26.0227 15.1909 24.2636 14.4045 21.9H11.0636V24.4909C12.7091 27.7591 16.0909 30 20 30Z" fill="#34A853"/>
+<path d="M14.4045 21.9C14.2045 21.3 14.0909 20.6591 14.0909 20C14.0909 19.3409 14.2045 18.7 14.4045 18.1V15.5091H11.0636C10.3864 16.8591 10 18.3864 10 20C10 21.6136 10.3864 23.1409 11.0636 24.4909L14.4045 21.9Z" fill="#FBBC04"/>
+<path d="M20 13.9773C21.4681 13.9773 22.7863 14.4818 23.8227 15.4727L26.6909 12.6045C24.9591 10.9909 22.6954 10 20 10C16.0909 10 12.7091 12.2409 11.0636 15.5091L14.4045 18.1C15.1909 15.7364 17.3954 13.9773 20 13.9773Z" fill="#E94235"/>
+</g>
+<rect x="0.5" y="0.5" width="39" height="39" rx="19.5" stroke="#8E918F"/>
+<defs>
+<clipPath id="clip0_710_6219">
+<rect width="20" height="20" fill="white" transform="translate(10 10)"/>
+</clipPath>
+</defs>
+</svg>
+</file>
+
+<file path="client/src/components/Copyright.jsx">
+// Copyright.jsx
+
+const Copyright = () => {
+    return (
+        <div className="footer">
+            <div className="copyright">
+                <p>Copyright 2024 Alex Pariah </p>
+            </div>
+        </div>
+    );
+};
+
+export default Copyright;
+</file>
+
+<file path="client/src/components/ModalWrapper.jsx">
+// ModalWrapper.jsx
+
+import PropTypes from 'prop-types'
+import '../css/Login.css'
+import '../css/BtnClose.css'
+import '../css/LandingPage.css'
+import BtnClose from './BtnClose'
+import '../css/fonts.css'
+
+const ModalWrapper = ({ children, isVisible, toggleModal }) => {
+  if (!isVisible) return null
+
+  return (
+    <div className='modal-backdrop'>
+      <div className='modal'>
+        {children}
+        <BtnClose onClick={toggleModal} />
+      </div>
+    </div>
+  )
+}
+
+ModalWrapper.propTypes = {
+  children: PropTypes.node.isRequired,
+  isVisible: PropTypes.bool.isRequired,
+  toggleModal: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired
+}
+
+export default ModalWrapper
+</file>
+
+<file path="client/src/css/App.css">
+/* App.css */
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+</file>
+
+<file path="client/src/css/Copyright.css">
+/* Copyright.css */
+
+.footer {
+    position: fixed;
+    display: flex;
+    bottom: 5vh;
+    width: 100%;
+    height: auto;
+    max-height: 50px;
+    background: none;
+}
+
+.copyright {
+    position: relative;
+    display: flex;
+    bottom: 10;
+    width: 100%;
+    height: 50px;
+    padding: 10px 10px;
+    margin: 20px;
+    opacity: 0.7;
+    text-align: center;
+    justify-content: center;
+    font-family: Arial, sans-serif;
+    font-weight: 300;
+    opacity: 0.6;
+    color: #fff;
+    font-size: 12px;
+    background: none;
+
+}
+
+.copyright p {
+    position: relative;
+    display: flex;
+    background: none;
+}
+</file>
+
+<file path="client/src/css/Register.css">
+/* Register.css */
+
+.modal-footer {
+    font-size: 0.9em;
+    color: rgba(84, 255, 235, 0.781);
+}
+
+.modal-footer button {
+    font-style: none;
+    color: rgb(0, 162, 255);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    background: none;
+    font-style: none;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    border: none;
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+    font-weight: 300;
+    font-size: 1em;
+}
+
+.modal-footer button:hover,
+.modal-footer button:focus {
+    color: rgb(255, 0, 128);
+}
+
+
+
+/* .btn-register {
+    background: none;
+    font-style: none;
+    color: rgb(0, 255, 255);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    border: none;
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+    font-weight: 300;
+    font-size: 1em;
+} */
+</file>
+
+<file path="client/src/pages/Dashboard.jsx">
+// Dashboard.jsx
+
+import '../css/Dashboard.css'
+
+const Dashboard = () => {
+  return (
+    <div className='dash-container'>
+      <div className='dash-header'>
+        <h1>DASHBOARD</h1>
+        <h2>(Coming Soon)</h2>
+      </div>
+    </div>
+  )
+}
+
+export default Dashboard
+</file>
+
+<file path="client/src/pages/Editor.jsx">
+// Editor.jsx
+</file>
+
+<file path="client/index.html">
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Noted</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
+</file>
+
+<file path="client/src/components/BtnClose.jsx">
+// BtnClose.jsx
+
+import '../css/BtnClose.css'
+import PropTypes from 'prop-types'
+
+function BtnClose ({ onClick }) {
+  return (
+    <button className='btn-x' onClick={onClick}>
+      X
+    </button>
+  )
+}
+
+BtnClose.propTypes = {
+  onClick: PropTypes.func.isRequired
+}
+export default BtnClose
+</file>
+
+<file path="client/src/components/BtnMain.jsx">
+// BtnMain.jsx
+
+import { useState, useEffect } from 'react'
+import '../css/BtnMain.css'
+import PropTypes from 'prop-types'
+
+const BtnMain = ({ onClick }) => {
+  const [label, setLabel] = useState(
+    window.innerWidth < 600 ? 'Tap to Explore' : 'Click to Explore'
+  )
+
+  useEffect(() => {
+    const handleResize = () => {
+      setLabel(window.innerWidth < 600 ? 'Tap to Explore' : 'Click to Explore')
+    }
+
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  // eslint-disable-next-line no-unused-vars
+  function debounce (fn, ms) {
+    let timer
+    return () => {
+      clearTimeout(timer)
+      timer = setTimeout(() => {
+        timer = null
+        fn.apply(this, arguments)
+      }, ms)
+    }
+  }
+
+  return (
+    <button className='btn-hero' onClick={onClick}>
+      {label}
+    </button>
+  )
+}
+
+BtnMain.propTypes = {
+  onClick: PropTypes.func.isRequired
+}
+
+export default BtnMain
+</file>
+
+<file path="client/src/css/Dashboard.css">
+/* Dashboard.css */
+
+body {
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.dash-container {
+    position:fixed;
+    display:flex;
+    width:100%;
+    height:vh;
+    background-color: black;
+    justify-content: center;
+    align-items: center;  
+}   
+
+.dash-header {
+    width:100%;
+    height: 33%;
+    top: 0;
+   
+}
+
+.dash-container h1 {
+    color: rgb(255, 255, 255);
+     text-align: center;
+}
+</file>
+
+<file path="client/src/firebaseConfig.js">
+// Firebase Configuration
+
+import { initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
+
+const firebaseConfig = {
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+export default auth;
+</file>
+
+<file path="client/vite.config.js">
+// /client/vite.config.js
+
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+
+export default defineConfig({
+  plugins: [react()],
+  server: {
+    allowedHosts: [
+      "pumped-miserably-ferret.ngrok-free.app",
+      "app.alexpariah.live",
+      "all",
+    ],
+  },
+});
+</file>
+
+<file path="client/src/css/BtnClose.css">
+/* BtnClose.css */
+
+.btn-x {
+    font-family: Roboto, Helvetica, Arial sans-serif;
+    font-weight: 600;
+    font-size: 30px;
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    height: 20px;
+    width: 20px;
+    top: 7%;
+    left: 91%;
+    background: none;
+    color: rgb(0, 255, 200);
+    font-size: 0.6em;
+    margin: -10px;
+    border-color: rgb(7, 218, 255);
+    border: 1px solid;
+    transition: color 0.3s ease, background-color 0.3s ease;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+
+.btn-x:hover {
+    color: rgb(255, 255, 255);
+    background-color: rgb(145, 0, 60);
+}
+</file>
+
+<file path="client/src/css/fonts.css">
+/* fonts.css */
+
+/* Cervanttis */
+@font-face {
+  font-family: 'Cervanttis';
+  src: local('Cervanttis'), url('../assets/fonts/Cervanttis.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Guild of Professional Actors */
+@font-face {
+  font-family: 'Guild';
+  src: local('guildof'), url('../assets/fonts/guildof.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normsl;
+}
+
+/* Roboto */
+@font-face {
+  font-family: 'Roboto';
+  src: local('Roboto'), url('../assets/fonts/Roboto.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normsl;
+}
+</file>
+
+<file path=".gitignore">
+/node_modules
+/package-lock.json
+/*.mp4
+/.env
+/logs
+../.backups
+../.vscode
+/client/dist
+/client/node_modules
+/client/.env
+/client/src/assets/bg.mp4
+/client/src/.templates
+/client/.eslintrc.cjs
+/client/logs
+/client/package-lock.json
+/client/src/assets/.unused
+/client/.gitignore
+</file>
+
+<file path="client/src/components/Register.jsx">
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import PropTypes from 'prop-types'
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
+import '../css/Login.css'
+import '../css/Register.css'
+import '../css/LandingPage.css'
+import '../css/fonts.css'
+
+const Register = ({ closeModal, switchToLogin }) => {
+  const navigate = useNavigate()
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState()
+  const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
+
+  const handleRegister = async e => {
+    e.preventDefault()
+    setError('')
+    setLoading(true)
+
+    if (!email || !password) {
+      setError('Please fill out all fields.')
+      setLoading(false)
+      return
+    }
+
+    if (confirmPassword != password) {
+      setError('Passwords do not match.')
+      setLoading(false)
+      return
+    } 
+
+    try {
+      const auth = getAuth()
+      await createUserWithEmailAndPassword(auth, email, password)
+      navigate('/dashboard')
+      closeModal()
+    } catch (error) {
+      console.error('Error during registration:', error)
+      setError(error.message)
+      setLoading(false)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  return (
+    <div>
+      <h2>Register</h2>
+      <form onSubmit={handleRegister}>
+        {error && <div className='error-message'>{error}</div>}
+        <div className='text-email'>
+          <input
+            type='email'
+            placeholder='Email'
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+          />
+        </div>
+        <div className='text-password'>
+          <input
+            type='password'
+            placeholder='Password'
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+          />
+        </div>
+          <div className='text-confirm-password'>
+          <input
+            type='password'
+            placeholder='Confirm Password'
+            value={confirmPassword}
+            onChange={e => setConfirmPassword(e.target.value)}
+          />
+        </div>
+        <button type='submit' className='btn-submit' disabled={loading}>
+          {loading ? 'Loading...' : 'Submit'}
+        </button>
+      </form>
+      <div className='modal-footer'>
+        <p>
+         Already have an account?{' '} Return to 
+          <button className='btn-register' onClick={switchToLogin}>
+            Login
+          </button>
+        </p>
+      </div>
+    </div>
+  )
+}
+
+Register.propTypes = {
+  closeModal: PropTypes.func.isRequired,
+  switchToLogin: PropTypes.func.isRequired
+}
+
+export default Register
+</file>
+
+<file path="client/src/css/BtnMain.css">
+/* BtnMain.css */
+
+.btn-container {
+    position: fixed;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    left: 0;
+    margin-top: 55vh;
+    background-color: rgba(51, 0, 56, 0.295);
+    border: 1px solid rgba(47, 0, 216, 0.438);
+    overflow: hidden;
+}
+
+.btn-hero {
+    font-family: Guild, Helvetica, Arial, sans-serif;
+    background-color: rgba(0, 0, 0, 0);
+    color: rgb(255, 190, 215);
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    text-shadow: 1px 1px 5px rgba(0, 10, 56, 0.8), 0 0 10px rgba(156, 174, 255, 0.8), 0px 0 20px rgba(255, 255, 255, 0.7), 0px 2px 10px rgb(1, 74, 87), 0px -2px 2px rgb(111, 0, 255), 0 0 10px #000;
+    text-align: center;
+    justify-content: center;
+    font-size: 2.5em;
+    font-weight: 400;
+    min-width: 15%;
+    width: auto;
+    box-sizing: 0;
+    box-shadow: 0 2 5px #000;
+    transition: color 0.3s ease, border 0.3s ease, border-color 0.3s ease, text-shadow 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, box-sizing 0.3s ease;
+}
+
+.btn-hero:hover,
+.btn-hero:focus {
+    color: #ffffff73;
+    background-color: rgba(6, 8, 104, 0);
+    border: 0px, solid;
+    text-shadow: 0 0 5px #ffffff, 0 0 10px #b700ff, 0 0 10px #ffffff;
+    box-shadow: 0 0 20px #7700ffab, 0 0 10px #a605ac8e, c;
+    box-sizing: 2em;
+    overflow: hidden;
+}
+
+@media screen and (max-width: 600px) {
+    .btn-hero {
+        width: auto;
+        min-width: 40%;
+        font-size: 2em;
+        display: inline;
+    }
+
+    .btn-container {
+        margin-top: 55vh;
+    }
+}
+</file>
+
+<file path="client/src/css/LandingPage.css">
+/* LandingPage.css  */
+
+@import url('./fonts.css');
+
+body {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.container {
+  text-align: center;
+  width: 100%;
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+}
+
+.bgVid {
+  background: black;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: -10;
+  overflow: hidden;
+}
+
+.darker {
+  background-color: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: -9;
+  overflow: hidden;
+}
+
+.header {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+}
+
+.hero {
+  position: fixed;
+  top: 25vh;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: auto;
+  max-height: 20%;
+}
+
+.hero img {
+  position: relative;
+  display: flex;
+  height: auto;
+  margin: 0 auto;
+  padding: 0;
+  width: auto;
+  max-width:800px;
+  min-width: 600px;
+  top: 0;
+  height: auto;
+  max-height: 600px;
+  min-height: 400px;
+}
+
+.btn-back-box {
+  position:relative;
+  display: flex;
+  width: 100%;
+  height: 20px;  
+  padding: 20px;
+  justify-content: center;
+  text-align: center;
+  z-index: 2;
+}
+
+.btn-back {
+  position:absolute;
+  margin-top: 100%;
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+  font-size:  .8em;
+  color: rgba(0, 119, 255, 0.363);
+  border: none;
+  background: none;  
+  bottom: 0;
+  transition: color 0.3s ease;
+}
+
+.btn-back:hover {
+  color:rgb(222, 255, 255);
+}
+
+@media screen and (max-width: 700px) {
+  .hero img {
+    min-width: 600px;
+    min-height:200px;
+  }
+}
+</file>
+
+<file path="client/src/pages/LandingPage.jsx">
+// pages/LandingPage.jsx
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import logo from "../assets/logo.png";
+//import bgVideo from '../assets/bg.mp4'
+import ModalWrapper from "../components/ModalWrapper";
+import Login from "../components/Login";
+import Register from "../components/Register";
+import BtnMain from "../components/BtnMain";
+import Copyright from "../components/Copyright";
+import "../css/LandingPage.css";
+import "../css/fonts.css";
+import "../css/Login.css";
+import "../css/Register.css";
+
+const LandingPage = () => {
+  const navigate = useNavigate;
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [modalContent, setModalContent] = useState("login");
+
+  const openModal = () => setIsModalVisible(true);
+  const closeModal = () => setIsModalVisible(false);
+  const switchToRegister = () => setModalContent("register");
+  const switchToLogin = () => setModalContent("login");
+
+  // Render
+  return (
+    <div className="container">
+      {/* Background Video  
+        <video autoPlay muted loop className="bgVid">
+          <source src={bgVideo} type="video/mp4" />
+        </video> */}
+
+      {/* Hero Section */}
+      <header className="header">
+        <div className="hero">
+          <img src={logo} className="logo" alt="noted" />
+          <div className="btn-container">
+            <BtnMain text="" onClick={openModal} />
+          </div>
+        </div>
+      </header>
+
+      {/* Modal */}
+      <ModalWrapper
+        className="model-backdrop"
+        isVisible={isModalVisible}
+        toggleModal={closeModal}
+      >
+        {modalContent === "login" ? (
+          <Login
+            navigate={navigate}
+            switchToRegister={switchToRegister}
+            closeModal={closeModal}
+          />
+        ) : (
+          <Register
+            navigate={navigate}
+            switchToLogin={switchToLogin}
+            closeModal={closeModal}
+          />
+        )}
+      </ModalWrapper>
+
+      {/* Footer Section */}
+      <Copyright />
+    </div>
+  );
+};
+
+export default LandingPage;
+</file>
+
+<file path="client/src/main.jsx">
+// main.jsx
+
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import App from './App'
+import './css/App.css'
+import './css/LandingPage.css'
+import './css/BtnMain.css'
+import './css/Copyright.css'
+import './css/fonts.css'
+
+
+const root = ReactDOM.createRoot(document.getElementById('root'))
+
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+)
+</file>
+
+<file path="package.json">
+{
+    "name": "noted",
+    "version": "3",
+    "scripts": {
+        "start": "cd client && npx vite build && npx vite dev && cd ../server && npm run start",
+        "deploy": "cd client && npx vite build && cd ../server && npm run start",
+        "init": "cd client && pnpm i && cd .. && cd server && pnpm i"
+    }
+}
+</file>
+
+<file path="client/src/App.jsx">
+// App.jsx
+
+import { useState, useEffect } from 'react'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import LandingPage from './pages/LandingPage'
+import Redirect from './.templates/Redirect'
+import Dashboard from './pages/Dashboard'
+import './firebaseConfig'
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
+
+const App = () => {
+  const auth = getAuth()
+  const [currentUser, setCurrentUser] = useState(null)
+  
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setCurrentUser(user);
+      } else {
+        setCurrentUser(null)
+      }
+    })
+  
+    return () => unsubscribe()
+  }, [auth])
+ 
+
+    return (
+      <div className='App'>
+        <Router>
+          <Routes>
+            <Route
+              path='/'
+              element={<LandingPage parentCallback={onAuthStateChanged} />}
+            />
+            <Route
+              path='/dashboard'
+              element={currentUser ? <Dashboard /> : <Redirect to='/' />}
+            />
+          </Routes>
+        </Router>
+      </div>
+    )
+  }
+
+export default App
+</file>
+
+<file path="client/src/css/Login.css">
+/* Login.css */
+
+@media screen and (max-width: 600) {
+    .modal {
+        max-height:33%;
+    }
+}
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(2px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s;
+}
+
+.modal {
+    position: static;
+    background-color: rgba(0, 19, 27, 0.24);
+    backdrop-filter: blur(5px);
+    padding: 20px;
+    border: 1px solid;
+    border-color: rgb(0, 225, 255);
+    border-radius: 5px;
+    box-shadow: 0 0 15px rgba(0, 96, 160, 0.829);
+    animation: slideUp 0.5s ease-out;
+    color: white;
+    max-width: 600px;
+    min-width:400px;
+    max-height: 350px;
+    min-height: 350px;
+}
+
+.h2 {
+    font-family: Roboto, Helvetica, sans-serif;
+    font-size: 5em;
+    font-weight: 300;
+    color: rgb(255, 255, 255);
+}
+
+.modal input {
+    font-family: Roboto, Helvetica, sans-serif;
+    color: white;
+    background: none;
+    padding: 20px;
+    margin: 20px;
+    border: 1px solid;
+    border-color: rgb(6, 221, 228);
+    font-size: 1.5em;
+    justify-content: center;
+    text-align: left;
+    margin: 5px;
+    padding: 2px;
+    width: 95%;
+}
+
+.modal input:focus {
+    background: white;
+    color: black;
+    border: none;
+}
+
+.btn-submit {
+    color: rgb(0, 255, 255);
+    background: none;
+    border: 1px solid;
+    border-radius: 4px;
+    border-color: rgb(0, 247, 255);
+    margin: 10px;
+    margin-top: 5%;
+    padding: 10px;
+    font-size: 1.2em;
+    font-family: Roboto, Helvetica, sans-serif;
+    transition: color 0.3s ease, background 0.3s ease,
+        text-shadow 0.3s ease;
+}
+
+.btn-submit:hover,
+.btn-submit:focus {
+    color: rgb(255, 255, 255);
+    background-color: rgb(124, 0, 52);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.829);
+}
+
+.login-socials {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: auto;
+    margin-top: 10px;
+    left: 0;
+    top: 0;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.google,
+.fb {
+    padding: 0px;
+    margin: 0px;
+    width: 30%;
+    background: none;
+    border: none;
+    border-color: white;
+}
+
+.error-message {
+    color: red;
+    font-size: 1em;
+    
+}
+
+.success-message {
+    color: rgb(9, 255, 0);
+    font-size: 1em;
+}
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(100vh);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+</file>
+
+<file path="client/package.json">
+{
+  "name": "noted-client",
+  "version": "3.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "serve -s dist"
+  },
+  "dependencies": {
+    "firebase": "latest",
+    "prop-types": "^15.8.1",
+    "react": "latest",
+    "react-bootstrap": "latest",
+    "react-dom": "latest",
+    "react-router": "latest",
+    "react-router-dom": "latest",
+    "router": "latest"
+  },
+  "devDependencies": {
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "@vitejs/plugin-react": "^4.3.4",
+    "@vitejs/plugin-react-swc": "latest",
+    "eslint": "latest",
+    "eslint-plugin-react": "latest",
+    "eslint-plugin-react-hooks": "latest",
+    "eslint-plugin-react-refresh": "latest",
+    "vite": "^6.2.3"
+  }
+}
+</file>
+
+<file path="client/src/components/Login.jsx">
+// Login.jsx
+
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import PropTypes from 'prop-types'
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
+import '../css/Login.css'
+import '../css/LandingPage.css'
+import '../css/fonts.css'
+import '../css/Register.css'
+
+const Login = ({ closeModal, switchToRegister }) => {
+  const navigate = useNavigate()
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
+  const [success, setSuccess] = useState('')
+  const [loading, setLoading] = useState(false)
+
+  const handleLogin = async e => {
+    e.preventDefault()
+    setError('')
+    setSuccess('')
+    setLoading(true)
+
+    if (!email || !password) {
+      setError('Please enter both email and password.')
+      setLoading(false)
+      return
+    }
+
+    try {
+      const auth = getAuth()
+      await signInWithEmailAndPassword(auth, email, password)
+       setSuccess('Logged in successfully. Redirecting...')
+       navigate('/dashboard')
+       closeModal()     
+    } catch (error) {
+       console.error('Error during login:', error)
+       setError(error.message)
+       setLoading(false)
+    } finally {
+        setLoading(false)     
+    }
+  }
+
+  return (
+    <div>
+      <h2>Login</h2>
+      <form onSubmit={handleLogin}>
+        {error && <div className='error-message'>{error}</div>}
+        {success && <div className='success-message'>{success}</div>}
+        <div className='text-email'>
+          <input
+            type='email'
+            placeholder='Email'
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+          />
+        </div>
+        <div className='text-password'>
+          <input
+            type='password'
+            placeholder='Password'
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+          />
+        </div>
+        <button type='submit' className='btn-submit' disabled={loading}>
+          {loading ? 'Loading...' : 'Submit'}
+        </button>
+      </form>
+      <div className='modal-footer'>
+        <p>
+          Don&apos;t have an account?{' '}
+          <button className='btn-register' onClick={switchToRegister}>
+            Register
+          </button>
+        </p>
+      </div>
+    </div>
+  )
+}
+
+Login.propTypes = {
+  
+  closeModal: PropTypes.func.isRequired,
+  switchToRegister: PropTypes.func.isRequired
+}
+
+export default Login
+</file>
+
+</files>

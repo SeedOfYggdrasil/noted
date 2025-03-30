@@ -1,0 +1,22 @@
+{
+  "name": "noted-api",
+  "version": "3.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "bcrypt": "latest",
+    "bootstrap": "latest",
+    "cors": "latest",
+    "dotenv": "^16.4.7",
+    "express": "latest",
+    "express-router": "latest",
+    "jsonwebtoken": "latest",
+    "mongodb": "^6.15.0",
+    "mongoose": "latest",
+    "path": "latest",
+    "prompt-sync": "latest",
+    "router": "latest"
+  }
+}
