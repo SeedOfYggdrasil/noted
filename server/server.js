@@ -1,22 +1,13 @@
-// Server.js
+// server.js
 
-// Dependencies
+// Packages
+require("dotenv");
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
 const { MongoClient, ServerApiVersion } = require("mongodb");
 
-require("dotenv");
-
-// ES MODULE
-// import apiRoutes from "./routes/apiRoutes.js";
-// import authRoutes from "./routes/auth.js";
-// app.use("/api/", apiRoutes);
-// app.use("/auth/", authRoutes);
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
-
-// Express
+// Load Express
 const app = express();
 
 // Middleware
@@ -26,8 +17,7 @@ app.use(cors());
 // Database
 const mongoUri = process.env.MONGO_URI;
 const uri = mongoUri;
-
-const client = new MongoClient(uri, {
+const dbClient = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,
     strict: true,
@@ -37,24 +27,27 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
-    await client.connect();
-    await client.db("admin").command({ ping: 1 });
+    await dbClient.connect();
+    await dbClient.db("admin").command({ ping: 1 });
     console.log("Connected to database!");
   } finally {
-    await client.close();
+    uhic;
+    await dbClient.close();
   }
 }
 run().catch(console.dir);
 
 // Serve Client
-app.use(express.static(path.join(__dirname, "../client/dist")));
+app.use(express.static(path.join(__dirname, "..", "client", "dist")));
 const indexPath = path.join(__dirname, "../client/dist/index.html");
+
 app.get("*", (req, res) => {
   res.sendFile(indexPath);
 });
 
 // Start Server
+const HOST = process.env.HOST || localhost;
 const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
-  console.log(`Server is listening on port ${PORT}`);
+app.listen(PORT, "0,0,0,0", () => {
+  console.log(`http://${HOST}:${PORT}`);
 });
