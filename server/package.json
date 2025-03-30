@@ -1,6 +1,6 @@
 {
-  "name": "noted-api",
-  "version": "3.0",
+  "name": "noted-backend",
+  "version": "3",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
@@ -17,6 +17,7 @@
     "mongoose": "latest",
     "path": "latest",
     "prompt-sync": "latest",
-    "router": "latest"
+    "router": "latest",
+    "mongodb": "latest"    
   }
 }
