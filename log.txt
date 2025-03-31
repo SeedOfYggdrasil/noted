@@ -1,0 +1,7 @@
+
+> noted@3 deploy
+> cd client && npx vite build && cd ../server && npm run start
+
+vite v6.2.3 building for production...
+transforming...
+✓ 13 modules transformed.

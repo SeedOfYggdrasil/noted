@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import bgVideo from '../assets/bg.mp4';
 import logo from "../assets/logo.png";
 import ModalWrapper from "../components/ModalWrapper";
 import Login from "../components/Login";
@@ -26,23 +27,12 @@ const LandingPage = () => {
 
   // Rendering
   return (
-
-  <div className="container">
-    <iframe
-      src={bgURL}
-      frameBorder="0"
-      allow="autoplay; fullscreen"
-      allowFullScreen
-      className="bgVid"
-      style={{ 
-            position: 'fixed', 
-            top: 0, 
-            left: 0, 
-            width: '100%',
-            height: '100%', 
-            zIndex: -1 
-      }}
-    ></iframe>
+    <div className="container">
+    
+    {/* Background Video */}
+    <video autoPlay muted loop className='bgVid'>
+        <source src={bgVideo} type='video/mp4' />
+    </video>
 
     {/* Hero Section */}
     <header className="header">

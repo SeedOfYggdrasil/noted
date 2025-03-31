@@ -1,10 +1,13 @@
+// server.js
+
 require("dotenv").config();
+
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
 const { MongoClient, ServerApiVersion } = require("mongodb");
 
-// Load Express
+// Express
 const app = express();
 
 // Middleware
@@ -25,11 +28,10 @@ async function run() {
   try {
     await dbClient.connect();
     await dbClient.db("admin").command({ ping: 1 });
-    console.log("Connected to database!");
+    console.log("Connected.");
   } catch (err) {
     console.error("Database connection error:", err);
   } finally {
-    // Removed undefined "uhic;" statement
     await dbClient.close();
   }
 }
@@ -37,8 +39,7 @@ run().catch(console.dir);
 
 // Serve Client
 app.use(express.static(path.join(__dirname, "..", "client", "dist")));
-const indexPath = path.join(__dirname, "..", "client", "dist", "index.html");
-
+const indexPath = path.join(__dirname, "../client/dist/index.html");
 app.get("*", (req, res) => {
   res.sendFile(indexPath);
 });
@@ -46,6 +47,6 @@ app.get("*", (req, res) => {
 // Start Server
 const HOST = process.env.HOST || "localhost";
 const PORT = process.env.PORT || 3001;
-app.listen(PORT, "0.0.0.0", () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`http://${HOST}:${PORT}`);
 });

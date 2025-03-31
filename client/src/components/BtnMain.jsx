@@ -6,12 +6,12 @@ import PropTypes from 'prop-types'
 
 const BtnMain = ({ onClick }) => {
   const [label, setLabel] = useState(
-    window.innerWidth < 600 ? 'Tap to Explore' : 'Click to Explore'
+    window.innerWidth < 600 ? 'Login' : 'Login to Dashboard'
   )
 
   useEffect(() => {
     const handleResize = () => {
-      setLabel(window.innerWidth < 600 ? 'Tap to Explore' : 'Click to Explore')
+      setLabel(window.innerWidth < 600 ? 'Login' : 'Login to Dashboard')
     }
 
     window.addEventListener('resize', handleResize)

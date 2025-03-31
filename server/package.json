@@ -1,23 +1,19 @@
 {
   "name": "noted-backend",
-  "version": "3",
+  "version": " 3.0",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
-    "bcrypt": "latest",
-    "bootstrap": "latest",
     "cors": "latest",
-    "dotenv": "^16.4.7",
+    "dotenv": "latest",
     "express": "latest",
+    "router": "latest",    
     "express-router": "latest",
-    "jsonwebtoken": "latest",
-    "mongodb": "^6.15.0",
-    "mongoose": "latest",
+    "react-router": "latest",    
     "path": "latest",
     "prompt-sync": "latest",
-    "router": "latest",
     "mongodb": "latest"    
   }
 }

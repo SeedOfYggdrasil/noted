@@ -107,8 +107,14 @@ body {
 }
 
 @media screen and (max-width: 700px) {
-  .hero img {
-    min-width: 600px;
+
+.darker{
+display: none;
+}          
+   .hero img {
+    max-width: 600px;
     min-height:200px;
-  }
+    padding: 20px;
+    margin: 20px;
+    }
 }

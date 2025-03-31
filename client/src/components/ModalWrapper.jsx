@@ -1,10 +1,10 @@
 // ModalWrapper.jsx
 
 import PropTypes from 'prop-types'
+import BtnClose from './BtnClose'
 import '../css/Login.css'
 import '../css/BtnClose.css'
 import '../css/LandingPage.css'
-import BtnClose from './BtnClose'
 import '../css/fonts.css'
 
 const ModalWrapper = ({ children, isVisible, toggleModal }) => {
@@ -24,7 +24,6 @@ ModalWrapper.propTypes = {
   children: PropTypes.node.isRequired,
   isVisible: PropTypes.bool.isRequired,
   toggleModal: PropTypes.func.isRequired,
-  onClick: PropTypes.func.isRequired
 }
 
 export default ModalWrapper

@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import './firebaseConfig'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import LandingPage from './pages/LandingPage'
-import Redirect from './.templates/Redirect'
+import Redirect from './components/Redirect'
 import Dashboard from './pages/Dashboard'
 
 const App = () => {
@@ -39,11 +39,11 @@ const App = () => {
             />
             <Route
               path='/editor'
-              element={currentUser ? <Editor /> : <Redirect to='/' />}
+              element={<Redirect to='/' />}
             />
             <Route
               path='*'
-              element={<Redirect to="/" />} 
+              element={<Redirect to='/' />} 
             />
 
           </Routes>
